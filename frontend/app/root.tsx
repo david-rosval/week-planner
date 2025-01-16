@@ -9,6 +9,11 @@ import type { LinksFunction } from "@remix-run/node";
 
 import "./tailwind.css";
 
+import '@fontsource/pacifico';
+import '@fontsource-variable/figtree'; // Supports weights 300-900
+import GlobalProvider from "./components/providers/GlobalProvider";
+import ToggleLanguageButton from "./components/ToggleLanguageButton";
+
 export const links: LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
   {
@@ -32,7 +37,10 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
-        {children}
+        <GlobalProvider>
+          <ToggleLanguageButton />
+          {children}
+        </GlobalProvider>
         <ScrollRestoration />
         <Scripts />
       </body>
