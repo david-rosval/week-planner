@@ -15,6 +15,8 @@ export default {
           "Segoe UI Symbol",
           "Noto Color Emoji",
         ],
+        figtree: ['"Figtree Variable"', "sans-serif"],
+        pacifico: ['"Pacifico"', "cursive"]
       },
     },
   },

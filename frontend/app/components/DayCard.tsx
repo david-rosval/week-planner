@@ -25,11 +25,10 @@ const demoActivityList = [
 export default function DayCard({ day }: { day: { en: string; es: string; color: string } }) {
   const { language } = useGlobal()
    
-  
   return (
     <div className="font-figtree font-light border-2 p-8 flex flex-col gap-6">
       <div className="relative flex justify-center">
-        <h2 className="font-pacifico text-4xl z-20">{day[language]}</h2>
+        <h2 className="font-pacifico text-4xl z-20 capitalize">{day[language]}</h2>
         <div className={`absolute inset-0 
           max-w-[400px]
           h-6 ${day.color} -skew-x-12 m-auto -z-10 opacity-40`} />

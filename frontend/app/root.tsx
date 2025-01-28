@@ -5,14 +5,25 @@ import {
   Scripts,
   ScrollRestoration,
 } from "@remix-run/react";
-import type { LinksFunction } from "@remix-run/node";
+import type { LinksFunction, MetaFunction, LoaderFunction } from "@remix-run/node";
 
 import "./tailwind.css";
 
 import '@fontsource/pacifico';
 import '@fontsource-variable/figtree'; // Supports weights 300-900
 import GlobalProvider from "./components/providers/GlobalProvider";
-import ToggleLanguageButton from "./components/ToggleLanguageButton";
+
+// Import rootAuthLoader
+import { rootAuthLoader } from "@clerk/remix/ssr.server";
+import { ClerkApp } from "@clerk/remix";
+import TopBar from "./components/TopBar";
+
+export const meta: MetaFunction = () => ([{
+  charset: "utf-8",
+  title: "Week Planner",
+  viewport: "width=device-width,initial-scale=1",
+}]);
+
 
 export const links: LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -27,18 +38,19 @@ export const links: LinksFunction = () => [
   },
 ];
 
+// Export as the root route loader
+export const loader: LoaderFunction = (args) => rootAuthLoader(args);
+
+
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <head>
-        <meta charSet="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <Meta />
         <Links />
       </head>
-      <body>
+      <body className="relative">
         <GlobalProvider>
-          <ToggleLanguageButton />
           {children}
         </GlobalProvider>
         <ScrollRestoration />
@@ -48,6 +60,13 @@ export function Layout({ children }: { children: React.ReactNode }) {
   );
 }
 
-export default function App() {
-  return <Outlet />;
+function App() {
+  return (
+    <>
+      <TopBar />
+      <Outlet />
+    </>
+  );
 }
+
+export default ClerkApp(App)
