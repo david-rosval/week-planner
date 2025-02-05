@@ -1,10 +1,11 @@
 import type { Activity } from "../consts";
 import { timeFormat24 } from "../utils/activities";
 
-export default function Activity({ activity }: { activity: Activity & { display: string } }) {
-  const position = activity.starts.time
-  const height = activity.ends.time - activity.starts.time
-  const bgColor = activity.objective.color.dark
+export default function Activity({ activity }: { activity: Activity }) {
+  const { starts, ends, objective} = activity
+  const position = starts.time
+  const height = ends.time - starts.time
+  const bgColor = objective.color.dark
 
   return (
     <button 
@@ -18,7 +19,7 @@ export default function Activity({ activity }: { activity: Activity & { display:
       onClick={() => console.log(activity)}
     >
       <p className="font-semibold truncate">{activity.title}</p>
-      <p className="text-xs truncate">{timeFormat24(activity.starts.time)} - {timeFormat24(activity.ends.time)}</p>
+      <p className="text-xs truncate dark:text-white/70 text-gray-900/70">{timeFormat24(activity.starts.time)} - {timeFormat24(activity.ends.time)}</p>
     </button>
   )
 }

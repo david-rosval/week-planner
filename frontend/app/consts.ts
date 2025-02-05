@@ -155,7 +155,7 @@ type Color = {
   dark: string;
 }
 
-type Objective = {
+export type Objective = {
   id: string;
   userId: string;
   objective: string;
@@ -180,7 +180,47 @@ export type Activity = {
   userId: string;
 }
 
+export type UserObjectives = Array<Objective>
+
 export type UserActivities = Array<Activity>
+
+export type UserWeekPlannerData = {
+  objectives: UserObjectives,
+  activities: UserActivities
+}
+
+export const exampleUserObjectives: UserObjectives = [
+  {
+    id: "objective1",
+    userId: "user123",
+    objective: "Maintain physical health",
+    deadline: "2025-12-31",
+    color: {
+      light: "#D4C4FB",
+      dark: "#5300EB"
+    }
+  },
+  {
+    id: "objective2",
+    userId: "user123",
+    objective: "Ensure project alignment",
+    deadline: "2025-06-30",
+    color: {
+      light: "#C1E1C5",
+      dark: "#008B02"
+    }
+  },
+  {
+    id: "objective3",
+    userId: "user123",
+    objective: "Improve code quality",
+    deadline: "2025-03-01",
+    color: {
+      light: "#FAD0C3",
+      dark: "#DB3E00"
+    }
+  },
+]
 
 export const exampleUserActivities: UserActivities = [
   {
@@ -255,4 +295,33 @@ export const exampleUserActivities: UserActivities = [
     },
     userId: "user123",
   },
+  {
+    id: "activity4",
+    title: "Run tests",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    starts: {
+      day: "monday",
+      time: 120, // 3:00 PM
+    },
+    ends: {
+      day: "monday",
+      time: 240, // 5:00 PM
+    },
+    objective: {
+      id: "objective3",
+      userId: "user123",
+      objective: "Improve code quality",
+      deadline: "2025-03-01",
+      color: {
+        light: "#FAD0C3",
+        dark: "#DB3E00"
+      }
+    },
+    userId: "user123",
+  },
 ];
+
+export const exampleUserWeekPlannerData: UserWeekPlannerData = {
+  objectives: exampleUserObjectives,
+  activities: exampleUserActivities
+}

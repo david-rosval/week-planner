@@ -62,10 +62,10 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
 function App() {
   return (
-    <>
+    <div className="font-figtree text-sm max-w-[1300px] lg:mx-auto">
       <TopBar />
       <Outlet />
-    </>
+    </div>
   );
 }
 

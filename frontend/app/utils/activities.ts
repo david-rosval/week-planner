@@ -1,4 +1,4 @@
-import { DayTime } from "~/consts";
+import { DayTime } from "../consts";
 
 export function timeFormat24(minutes: number) {
   const hours = Math.floor(minutes / 60)
@@ -15,4 +15,20 @@ export function activityDisplay(starts: DayTime, ends: DayTime) {
   const height = `h-[${ends.time - starts.time}px]`
   const display = `${height} ${position}`
   return display
+}
+
+export function calculateDaysLeft(deadline: string) {
+  const today = new Date()
+
+  const deadlineDate = new Date(deadline)
+
+  if (isNaN(deadlineDate.getTime())) {
+    return null
+  }
+
+  const daysLeftMs = deadlineDate.getTime() - today.getTime()
+
+  const daysLeft = Math.ceil(daysLeftMs / (1000 * 60 * 60 * 24))
+
+  return daysLeft
 }

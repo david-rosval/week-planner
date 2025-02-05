@@ -1,5 +1,5 @@
 import { SignedIn, SignedOut, SignInButton, SignUpButton, UserButton, useUser } from "@clerk/remix";
-import { useLocation } from "@remix-run/react";
+import { Link, useLocation } from "@remix-run/react";
 
 export default function TopBar() {
   const { pathname } = useLocation()
@@ -10,12 +10,26 @@ export default function TopBar() {
   }
 
   return (
-    <div className="absolute top-0 inset-x-0 flex justify-end max-w-[1300px] w-full mx-auto py-2 px-4 ">
+    <div className="flex max-w-[1300px] w-full mx-auto py-3 px-5 bg-gray-800 mb-4">
       <SignedIn>
-        {isLoaded ? (
-          <UserButton />
-        ) : (
-          <div className="rounded-full size-[28px] bg-gray-300 animate-pulse" />
+        {(pathname !== "") && (
+          <>
+            <Link to="/" className="font-pacifico text-lg">
+              WP
+            </Link>
+            <nav className="flex-1 flex justify-center">
+              <div className="flex gap-10 items-center text-base">
+                <Link to="/" className="transition-transform ease-in-out hover:scale-105">Home</Link>
+                <Link to="/objectives" className="transition-transform ease-in-out hover:scale-105">Objectives</Link>
+                <Link to="/objectives" className="transition-transform ease-in-out hover:scale-105">Activities</Link>
+              </div>
+            </nav>
+            {isLoaded ? (
+              <UserButton />
+            ) : (
+              <div className="rounded-full size-[28px] bg-gray-300 animate-pulse" />
+            )}
+          </>
         )}
       </SignedIn>
 
