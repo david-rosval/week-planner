@@ -10,10 +10,10 @@ export default function TopBar() {
   }
 
   return (
-    <div className="flex max-w-[1300px] w-full mx-auto py-3 px-5 bg-gray-800 mb-4">
+    <div className="w-full py-3 bg-gray-800 mb-4">
       <SignedIn>
         {(pathname !== "") && (
-          <>
+          <div className="lg:mx-auto max-w-[1300px] flex px-5">
             <Link to="/" className="font-pacifico text-lg">
               WP
             </Link>
@@ -29,7 +29,7 @@ export default function TopBar() {
             ) : (
               <div className="rounded-full size-[28px] bg-gray-300 animate-pulse" />
             )}
-          </>
+          </div>
         )}
       </SignedIn>
 

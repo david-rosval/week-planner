@@ -14,7 +14,7 @@ export default function Activities() {
             console.log("New Activity")
           }}
         >
-          <CirclePlus size={25} className="stroke-gray-500 transition-colors ease-out duration-500 hover:stroke-green-500" />
+          <CirclePlus size={25} className="stroke-gray-500 transition-colors ease-out hover:stroke-green-500" />
         </button>
       </div>
       <WeekGrid />

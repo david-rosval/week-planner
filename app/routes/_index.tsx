@@ -6,6 +6,18 @@ import { useGlobal } from "../hooks/useGlobal";
 import Welcome from "../components/Welcome";
 import Activities from "../components/Activities";
 import ObjectivesSection from "../components/ObjectivesSection";
+import { redirect, type ActionFunctionArgs } from "@remix-run/node";
+
+export const action = async ({ request }: ActionFunctionArgs) => {
+  const formData = await request.formData()
+  const objective = String(formData.get("objective"))
+  const deadline = String(formData.get("deadline"))
+  const color = String(formData.get("color"))
+
+  console.log({objective, deadline, color})
+
+  return redirect("/")
+}
 
 export const loader = async () => {
   return exampleUserWeekPlannerData
