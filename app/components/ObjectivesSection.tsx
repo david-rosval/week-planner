@@ -2,9 +2,9 @@ import { Link, useLoaderData } from "@remix-run/react"
 import { loader } from "../routes/_index"
 import Objective from "./Objective"
 import { ChevronDown, CirclePlus } from "lucide-react"
-import { ObjectiveDialogForm } from "./DialogForm"
 import { useState } from "react"
 import { motion, AnimatePresence } from "motion/react"
+import ObjectiveDialogForm from "./ObjectiveDialogForm"
 
 export default function ObjectivesSection() {
   const weekPlannerData = useLoaderData<typeof loader>()

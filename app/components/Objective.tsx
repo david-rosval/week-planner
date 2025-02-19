@@ -18,6 +18,9 @@ export default function Objective({ objective }: { objective: Objective }) {
       animate={{
         backgroundColor: objectiveHovered ? `${color.dark}bb` : color.dark,
       }}
+      whileTap={{
+        scale: 0.95
+      }}
       className="rounded-lg p-3 flex flex-col gap-8 bg-gradient-to-t shadow-md transition-colors ease-out"
       onMouseEnter={() => setObjectiveHovered(true)}
       onMouseLeave={() =>setObjectiveHovered(false)}
