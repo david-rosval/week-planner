@@ -5,18 +5,9 @@ import { motion, AnimatePresence } from "motion/react";
 import { useState } from "react";
 
 const links = [
-  {
-    to: "/",
-    title: "Home"
-  },
-  {
-    to: "/objectives",
-    title: "Objectives"
-  },
-  {
-    to: "/objectives",
-    title: "Activities"
-  },
+  { to: "/", title: "Home" },
+  { to: "/objectives", title: "Objectives" },
+  { to: "/objectives", title: "Activities" },
 ]
 
 const animationVariants = {
@@ -63,25 +54,14 @@ export default function TopBar() {
                     scale: 0.9
                   }}
                   onClick={toggleDropDownMenu} 
-                  className="p-2"
                 >
                   <AnimatePresence>
                     {dropDownMenu ? (
-                      <motion.div
-                        exit={{
-                          opacity: 0,
-                          scale: 0
-                        }}
-                      >
+                      <motion.div exit={{ opacity: 0, scale: 0 }}>
                         <X />
                       </motion.div>
                     ) : (
-                      <motion.div
-                        exit={{
-                          opacity: 0,
-                          scale: 0
-                        }}
-                      >
+                      <motion.div exit={{ opacity: 0, scale: 0 }}>
                         <Menu />
                       </motion.div> 
                     )}
@@ -90,7 +70,7 @@ export default function TopBar() {
               </div>
 
               {isLoaded ? (
-                <UserButton />
+                <UserButton /> 
               ) : (
                 <div className="rounded-full size-[28px] bg-gray-300 animate-pulse" />
               )}
