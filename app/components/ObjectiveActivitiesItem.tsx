@@ -1,4 +1,4 @@
-import { timeFormat24 } from "../utils/activities";
+import { timeFormat24 } from "../utils";
 import { type Activity } from "../consts";
 
 export default function ObjectiveActivitiesItem({ activity }: { activity: Activity}) {

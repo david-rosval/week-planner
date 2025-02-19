@@ -3,7 +3,7 @@ import { type Objective } from "../consts";
 import {motion} from "motion/react"
 export default function Objective({ objective }: { objective: Objective }) {
   const {
-    objective: title,
+    title,
     color,
     deadline
   } = objective
@@ -13,10 +13,10 @@ export default function Objective({ objective }: { objective: Objective }) {
   return (
     <motion.div 
       initial={{
-        backgroundColor: color.dark,
+        backgroundColor: color,
       }}
       animate={{
-        backgroundColor: objectiveHovered ? `${color.dark}bb` : color.dark,
+        backgroundColor: objectiveHovered ? `${color}bb` : color,
       }}
       whileTap={{
         scale: 0.95

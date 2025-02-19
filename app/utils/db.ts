@@ -10,6 +10,8 @@ export async function getObjectiveActivities(objectiveId: string) {
   return activities
 }
 
+// with prisma
+
 import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient()
@@ -35,7 +37,7 @@ export async function getActivitiesByObjectiveId(objectiveId: string) {
   return allActivitiesFromObjective
 }
 
-type newObjectiveType = {
+export type newObjectiveType = {
   userId: string;
   title: string;
   deadline: Date;
@@ -49,3 +51,20 @@ export async function createObjective(newObjective: newObjectiveType) {
   return createdObjective
 }
 
+export type NewActivityType = {
+  title: string
+  description?: string
+  objectiveId: string
+  userId: string
+  startDay: string
+  startTime: number
+  endDay: string
+  endTime: number
+}
+
+export async function createActivity(newActivity: NewActivityType) {
+  const createdActivity = await prisma.activity.create({
+    data: newActivity
+  })
+  return createdActivity
+}

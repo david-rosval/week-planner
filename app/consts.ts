@@ -150,17 +150,12 @@ export const weekSample: WeekPlannerType = {
   duration: "P1W"
 };
 
-type Color = {
-  light: string;
-  dark: string;
-}
-
 export type Objective = {
   id: string;
   userId: string;
-  objective: string;
+  title: string;
   deadline: string;
-  color: Color;
+  color: string;
 }
 
 export type WeekDay = "monday" | "tuesday" | "wednesday" | "thursday" | "friday" | "saturday" | "sunday"
@@ -193,32 +188,23 @@ export const exampleUserObjectives: UserObjectives = [
   {
     id: "objective1",
     userId: "user123",
-    objective: "Maintain physical health",
+    title: "Maintain physical health",
     deadline: "2025-12-31",
-    color: {
-      light: "#D4C4FB",
-      dark: "#5300EB"
-    }
+    color: "#5300EB"
   },
   {
     id: "objective2",
     userId: "user123",
-    objective: "Ensure project alignment",
+    title: "Ensure project alignment",
     deadline: "2025-06-30",
-    color: {
-      light: "#C1E1C5",
-      dark: "#008B02"
-    }
+    color: "#008B02"
   },
   {
     id: "objective3",
     userId: "user123",
-    objective: "Improve code quality",
+    title: "Improve code quality",
     deadline: "2025-03-01",
-    color: {
-      light: "#FAD0C3",
-      dark: "#DB3E00"
-    }
+    color: "#DB3E00"
   },
 ]
 
@@ -238,12 +224,9 @@ export const exampleUserActivities: UserActivities = [
     objective: {
       id: "objective1",
       userId: "user123",
-      objective: "Maintain physical health",
+      title: "Maintain physical health",
       deadline: "2025-12-31",
-      color: {
-        light: "#D4C4FB",
-        dark: "#5300EB"
-      }
+      color: "#5300EB"
     },
     userId: "user123",
   },
@@ -262,12 +245,9 @@ export const exampleUserActivities: UserActivities = [
     objective: {
       id: "objective2",
       userId: "user123",
-      objective: "Ensure project alignment",
+      title: "Ensure project alignment",
       deadline: "2025-06-30",
-      color: {
-        light: "#C1E1C5",
-        dark: "#008B02"
-      }
+      color: "#008B02"
     },
     userId: "user123",
   },
@@ -286,12 +266,9 @@ export const exampleUserActivities: UserActivities = [
     objective: {
       id: "objective3",
       userId: "user123",
-      objective: "Improve code quality",
+      title: "Improve code quality",
       deadline: "2025-03-01",
-      color: {
-        light: "#FAD0C3",
-        dark: "#DB3E00"
-      }
+      color: "#DB3E00"
     },
     userId: "user123",
   },
@@ -310,12 +287,9 @@ export const exampleUserActivities: UserActivities = [
     objective: {
       id: "objective3",
       userId: "user123",
-      objective: "Improve code quality",
+      title: "Improve code quality",
       deadline: "2025-03-01",
-      color: {
-        light: "#FAD0C3",
-        dark: "#DB3E00"
-      }
+      color: "#DB3E00"
     },
     userId: "user123",
   },

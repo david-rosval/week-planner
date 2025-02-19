@@ -1,9 +1,10 @@
+import { Form } from "@remix-run/react";
 import { DialogForm, FormSection } from "./DialogForm";
 
 export default function ObjectiveDialogForm({ modal, setModal }: { modal: boolean, setModal: React.Dispatch<React.SetStateAction<boolean>> }) {
   return (
     <DialogForm modal={modal} setModal={setModal} title='New Objective'>
-      <div className='flex flex-col gap-7'>
+      <Form method="post" className='flex flex-col gap-7'>
         <div className='flex flex-col gap-5'>
           <FormSection name="objective" type="text" label="Title" />
           <FormSection name="deadline" type="date" label="Deadline" />
@@ -13,9 +14,11 @@ export default function ObjectiveDialogForm({ modal, setModal }: { modal: boolea
           <button
             className=' py-2 px-5 bg-green-600 rounded-lg text-white hover:bg-green-700 transition-colors ease-in-out' 
             type='submit'
+            name="_action"
+            value="createobjective"
             >Create</button>
         </div>
-      </div>
+      </Form>
     </DialogForm>
   )
 }

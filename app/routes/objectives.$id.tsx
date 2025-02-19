@@ -1,7 +1,7 @@
 import { LoaderFunctionArgs } from "@remix-run/node"
 import { useLoaderData } from "@remix-run/react"
 import { getObjectiveActivities, getUserObjective } from "../utils/db"
-import { calculateDaysLeft } from "../utils/activities"
+import { calculateDaysLeft } from "../utils"
 import { Clock } from "lucide-react"
 import ObjectiveActivitiesItem from "../components/ObjectiveActivitiesItem"
 
@@ -33,13 +33,13 @@ export default function Objective() {
     <div className="p-4 bg-gray-800 rounded-lg">
       <div className="flex">
         <div className="flex flex-col flex-1 gap-2">
-          <h2 className="text-2xl truncate">{objectiveInfo.objective}</h2>
+          <h2 className="text-2xl truncate">{objectiveInfo.title}</h2>
           <div className="flex gap-2 items-center" >
             <Clock size={18} className="stroke-gray-400" /> 
             <p className="text-gray-400">{objectiveInfo.deadline}</p>
           </div>
           <div style={{
-            borderColor: `${objectiveInfo.color.dark}`
+            borderColor: `${objectiveInfo.color}`
           }} className="mt-4 border-l-4 pl-3 flex flex-col gap-3">
             {objectiveActivities.map((activity, i) => (
               <ObjectiveActivitiesItem key={i} activity={activity} />

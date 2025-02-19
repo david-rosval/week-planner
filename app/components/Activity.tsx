@@ -1,11 +1,11 @@
 import type { Activity } from "../consts";
-import { timeFormat24 } from "../utils/activities";
+import { timeFormat24 } from "../utils";
 
 export default function Activity({ activity }: { activity: Activity }) {
   const { starts, ends, objective} = activity
   const position = starts.time
   const height = ends.time - starts.time
-  const bgColor = objective.color.dark
+  const bgColor = objective.color
 
   return (
     <button 

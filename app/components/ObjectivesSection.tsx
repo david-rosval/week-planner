@@ -36,7 +36,7 @@ export default function ObjectivesSection() {
         >
           <motion.div
             animate={{
-              rotate: dropDown ? 180 : 0,
+              rotateX: dropDown ? 180 : 0,
               transition: {
                 duration: 0.3
               }

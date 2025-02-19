@@ -32,3 +32,13 @@ export function calculateDaysLeft(deadline: string) {
 
   return daysLeft
 }
+
+export function convertTimeToMinutes(time: string) {
+  const [hours, minutes] = time.split(":").map(Number)
+  const minutesFromHours = hours * 60
+  return minutes + minutesFromHours
+}
+
+export function convertDateToIsoString(date: Date) {
+  return date.toISOString().split("T")[0]
+}

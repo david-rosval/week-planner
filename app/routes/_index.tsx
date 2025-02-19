@@ -6,21 +6,88 @@ import { useGlobal } from "../hooks/useGlobal";
 import Welcome from "../components/Welcome";
 import ActivitiesSection from "../components/ActivitiesSection";
 import ObjectivesSection from "../components/ObjectivesSection";
-import { redirect, type ActionFunctionArgs } from "@remix-run/node";
+import { LoaderFunctionArgs, redirect, type ActionFunctionArgs } from "@remix-run/node";
+import { getAuth } from "@clerk/remix/ssr.server";
+import { createObjective, getObjectives, NewActivityType, newObjectiveType } from "~/utils/db";
+import { convertDateToIsoString, convertTimeToMinutes } from "~/utils";
 
-export const action = async ({ request }: ActionFunctionArgs) => {
+export const action = async (args: ActionFunctionArgs) => {
+  const { userId } = await getAuth(args)
+
+  if (!userId) {
+    return redirect('/sign-in?redirect_url=' + args.request.url)
+  }
+
+  const { request } = args
   const formData = await request.formData()
-  const objective = String(formData.get("objective"))
-  const deadline = String(formData.get("deadline"))
-  const color = String(formData.get("color"))
+  const { _action, ...values } = Object.fromEntries(formData)
+  
+  if (_action === "createobjective") {
+    console.log("create objective")
 
-  console.log({objective, deadline, color})
+    // generate newObjective parameter
+    const newObjective: newObjectiveType = {
+      userId,
+      title: values.objective as string,
+      deadline: new Date(values.deadline as string),
+      color: values.color as string
+    }
+
+    console.log("input", newObjective)
+
+    try {
+      const createdObjective = await createObjective(newObjective)
+      console.log(createdObjective)
+    } catch (error) {
+      console.log(error)
+    }
+
+  }
+
+  if (_action === "createactivity") {
+    console.log("create activity")
+
+    // generate newActivity parameter
+    const newActivity: NewActivityType = {
+      title: values.title as string,
+      objectiveId: values.objective as string,
+      userId,
+      startDay: values.startDay as string,
+      startTime: convertTimeToMinutes(values.startTime as string),
+      endDay: values.endDay as string,
+      endTime: convertTimeToMinutes(values.endTime as string),
+    }
+    if (values.description && String(values.description).trim().length > 0) {
+      newActivity.description = values.description as string
+    }
+
+    console.log({ newActivity })
+  }
 
   return redirect("/")
 }
 
-export const loader = async () => {
-  return exampleUserWeekPlannerData
+export const loader = async (args: LoaderFunctionArgs) => {
+  const { userId } = await getAuth(args)
+  if (!userId) {
+    return redirect('/sign-in?redirect_url=' + args.request.url)
+  }
+  const userObjectives = await getObjectives(userId)
+  const userObjectivesDateFixed = userObjectives.map(objective => {
+    return {
+      ...objective,
+      deadline: convertDateToIsoString(objective.deadline)
+    }
+  })
+
+  const loaderData = {
+    objectives: userObjectivesDateFixed,
+    activities: exampleUserWeekPlannerData.activities
+  }
+
+  console.log(loaderData)
+
+  return loaderData
 }
 
 export default function Index() {

@@ -1,6 +1,6 @@
 import { ChevronDown } from "lucide-react";
 import { DialogForm, FormSection } from "./DialogForm";
-import { useLoaderData } from "@remix-run/react";
+import { Form, useLoaderData } from "@remix-run/react";
 import { loader } from "~/routes/_index";
 
 const days = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]
@@ -8,21 +8,23 @@ const days = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday"
 export default function ActivityDialogForm({ modal, setModal }: { modal: boolean, setModal: React.Dispatch<React.SetStateAction<boolean>> }) {
   return (
     <DialogForm modal={modal} setModal={setModal} title='New Activity'>
-      <div className='flex flex-col gap-7'>
+      <Form method="post" className='flex flex-col gap-7'>
         <div className='flex flex-col gap-5'>
           <FormSection name="title" type="text" label="Title" />
           <Description />
-          <ActivityScheduler dayName="startsDay" timeName="startsTime" label="Starts"  />
-          <ActivityScheduler dayName="endsDay" timeName="endsTime" label="Ends"  />
+          <ActivityScheduler dayName="startDay" timeName="startTime" label="Starts"  />
+          <ActivityScheduler dayName="endDay" timeName="endTime" label="Ends"  />
           <ObjectiveSelector />
         </div>
         <div className='flex justify-start'>
           <button
             className=' py-2 px-5 bg-green-600 rounded-lg text-white hover:bg-green-700 transition-colors ease-in-out' 
             type='submit'
-            >Create</button>
+            name="_action"
+            value="createactivity"
+          >Create</button>
         </div>
-      </div>
+      </Form>
     </DialogForm>
   )
 }
@@ -31,7 +33,7 @@ function Description() {
   return (
     <div className="flex flex-col gap-1">
       <label htmlFor="description" className="text-xs text-gray-400">Description</label>
-      <textarea name="description" id="description" className="bg-gray-600 rounded appearance-nones p-2 resize-none" rows={3}></textarea>
+      <textarea placeholder="(optional)" name="description" id="description" className="bg-gray-600 rounded appearance-nones p-2 resize-none" rows={3}></textarea>
     </div>
   )
 }
@@ -48,7 +50,7 @@ function ObjectiveSelector() {
           <select name="objective" id="objective" className="appearance-none p-2 focus:ring-red-400 focus:border-red-300 capitalize bg-gray-600 rounded truncate" >
             <option selected className="normal-case ">-- Choose an objective --</option>
             {objectives.map((objective, index) => (
-              <option className="capitalize truncate max-w-36" key={index} value={objective.id}>{objective.objective}</option>
+              <option className="capitalize truncate max-w-36" key={index} value={objective.id}>{objective.title}</option>
             ))}
           </select>
           <div className="absolute right-0 h-full flex items-center justify-center p-1 pointer-events-none">

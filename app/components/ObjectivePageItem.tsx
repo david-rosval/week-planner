@@ -5,17 +5,17 @@ import { motion } from "motion/react"
 export default function ObjectivePageItem({ objective }: { objective: Objective }) {
   const [objectiveHovered, setObjectiveHovered] = useState(false)
   const {
-    objective: title,
+    title,
     color,
     deadline
   } = objective
   return (
     <motion.div 
       initial={{
-        backgroundColor: color.dark
+        backgroundColor: color
       }}
       animate={{
-        backgroundColor: objectiveHovered ? `${color.dark}bb` : color.dark
+        backgroundColor: objectiveHovered ? `${color}bb` : color
       }}
       className="rounded-lg p-3 flex flex-col gap-8 bg-gradient-to-t shadow-md"
       onMouseEnter={() => setObjectiveHovered(true)}
