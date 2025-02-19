@@ -5,12 +5,12 @@ import { ChevronDown, CirclePlus } from "lucide-react"
 import { ObjectiveDialogForm } from "./DialogForm"
 import { useState } from "react"
 import { motion, AnimatePresence } from "motion/react"
+
 export default function ObjectivesSection() {
   const weekPlannerData = useLoaderData<typeof loader>()
   const { objectives } = weekPlannerData
 
-  const [dropDown, setDropDown] = useState(false)
-
+  const [dropDown, setDropDown] = useState(true)
   const [modal, setModal] = useState(false)
 
   function toggleDropDown() {

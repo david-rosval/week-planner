@@ -4,7 +4,7 @@ import WeekPlannerProvider from "../components/providers/WeekPlannerProvider";
 import { content, exampleUserWeekPlannerData } from "../consts";
 import { useGlobal } from "../hooks/useGlobal";
 import Welcome from "../components/Welcome";
-import Activities from "../components/Activities";
+import ActivitiesSection from "../components/ActivitiesSection";
 import ObjectivesSection from "../components/ObjectivesSection";
 import { redirect, type ActionFunctionArgs } from "@remix-run/node";
 
@@ -41,8 +41,7 @@ export default function Index() {
         <SignedIn>
           {/* Content */}
           <ObjectivesSection />
-          <Activities />
-          {/* <Week /> */}
+          <ActivitiesSection />
         </SignedIn>
         <SignedOut>
           <Welcome />
