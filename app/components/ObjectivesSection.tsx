@@ -10,7 +10,7 @@ export default function ObjectivesSection() {
   const weekPlannerData = useLoaderData<typeof loader>()
   const { objectives } = weekPlannerData
 
-  const [dropDown, setDropDown] = useState(true)
+  const [dropDown, setDropDown] = useState(false)
   const [modal, setModal] = useState(false)
 
   function toggleDropDown() {
