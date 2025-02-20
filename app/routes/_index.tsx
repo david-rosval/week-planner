@@ -22,6 +22,8 @@ export const action = async (args: ActionFunctionArgs) => {
   const formData = await request.formData()
   const { _action, ...values } = Object.fromEntries(formData)
   
+  // CREATE OBJECTIVE FORM
+  
   if (_action === "createobjective") {
     console.log("create objective")
 
@@ -38,11 +40,15 @@ export const action = async (args: ActionFunctionArgs) => {
     try {
       const createdObjective = await createObjective(newObjective)
       console.log(createdObjective)
+      return { result: "created" }
     } catch (error) {
       console.log(error)
+      return { result: "error" }
     }
 
   }
+
+  // CREATE ACTIVITY FORM
 
   if (_action === "createactivity") {
     console.log("create activity")
@@ -85,7 +91,7 @@ export const loader = async (args: LoaderFunctionArgs) => {
     activities: exampleUserWeekPlannerData.activities
   }
 
-  console.log(loaderData)
+  //console.log(loaderData)
 
   return loaderData
 }

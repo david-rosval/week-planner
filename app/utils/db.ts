@@ -18,9 +18,24 @@ const prisma = new PrismaClient()
 
 export async function getObjectives(userId: string) {
   const allObjectives = await prisma.objective.findMany({
-    where: { userId }
+    take: 4,
+    where: { userId },
   })
   return allObjectives
+}
+export async function getAllObjectives(userId: string) {
+  const allObjectives = await prisma.objective.findMany({
+    where: { userId },
+  })
+  return allObjectives
+}
+
+export async function getMoreObjectives(userId: string) {
+  const nextObjectives = await prisma.objective.findMany({
+    take: 4,
+    where: { userId },
+    skip: 4
+  })
 }
 
 export async function getActivities(userId: string) {

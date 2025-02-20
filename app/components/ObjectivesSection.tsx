@@ -5,6 +5,7 @@ import { ChevronDown, CirclePlus } from "lucide-react"
 import { useState } from "react"
 import { motion, AnimatePresence } from "motion/react"
 import ObjectiveDialogForm from "./ObjectiveDialogForm"
+import ViewMore from "./ViewMore"
 
 export default function ObjectivesSection() {
   const weekPlannerData = useLoaderData<typeof loader>()
@@ -65,13 +66,16 @@ export default function ObjectivesSection() {
                 duration: 0.2
               }
             }}
-            className="responsive-grid-display overflow-hidden"
+            className="overflow-hidden flex flex-col gap-6"
           >
-            {objectives.map((objective, i) => (
-              <Link key={i} to={`/objectives/${objective.id}`}>
-                <Objective objective={objective} />
-              </Link>
-            ))}
+            <div className="responsive-grid-display">
+              {objectives.map((objective, i) => (
+                <Link key={i} to={`/objectives/${objective.id}`}>
+                  <Objective objective={objective} />
+                </Link>
+              ))}
+            </div>
+            <ViewMore />
           </motion.div>
         )}
       </AnimatePresence>

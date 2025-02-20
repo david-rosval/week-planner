@@ -87,20 +87,15 @@ export default function TopBar() {
                 >
                   <div className="mx-5 w-full flex flex-col text-center z-10 uppercase text-lg">
                     {links.map((link, index) => (
-                      <div key={index} >
-                        <motion.div 
-                          whileTap={{
-                            scale: 0.9
-                          }}
-                          className="py-3"
+                      <div key={index} className="w-full" >
+                        <Link
+                          to={link.to}
+                          onClick={() => setDropDownMenu(false)}
                         >
-                          <Link
-                            to={link.to}
-                            onClick={() => setDropDownMenu(false)}
-                          >
+                          <p className="w-full py-2 transition-transform ease-in duration-75 active:scale-90">
                             {link.title}
-                          </Link>
-                        </motion.div>
+                          </p>
+                        </Link> 
                         {links.length - 1 > index && (
                           <div className="h-[1px] w-full bg-gray-600" />
                         )}

@@ -32,7 +32,11 @@ export function DialogForm({
     <motion.div 
       initial={{ opacity: 0 }}
       animate={{ opacity: modal ? 1 : 0 }}
-      exit={{ opacity: 0 }}
+      exit={{ opacity: 0,
+        transition: {
+          delay: 0.3
+        }
+      }}
       className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-30"
     >
       <motion.div 
@@ -51,6 +55,9 @@ export function DialogForm({
         exit={{
           y: -20,
           opacity: 0,
+          transition: {
+            delay: 0.2
+          }
         }}
         className="bg-white dark:bg-gray-800 p-5 rounded-lg  max-w-80 w-full flex flex-col gap-3 shadow-lg"
       >

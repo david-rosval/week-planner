@@ -1,16 +1,24 @@
 import { getAuth } from "@clerk/remix/ssr.server"
 import { LoaderFunctionArgs } from "@remix-run/node"
 import { NavLink, Outlet, redirect, useLoaderData } from "@remix-run/react"
-import { exampleUserObjectives } from "../consts"
 import { CirclePlus } from "lucide-react"
 import ObjectivePageItem from "../components/ObjectivePageItem"
+import { convertDateToIsoString } from "~/utils"
+import { getAllObjectives } from "~/utils/db"
 
 export const loader = async (args: LoaderFunctionArgs) => {
   const { userId } = await getAuth(args)
-  if (!userId) {
-    return redirect("/sign-in")
-  }
-  return exampleUserObjectives
+    if (!userId) {
+      return redirect('/sign-in?redirect_url=' + args.request.url)
+    }
+    const userObjectives = await getAllObjectives(userId)
+    const userObjectivesDateFixed = userObjectives.map(objective => {
+      return {
+        ...objective,
+        deadline: convertDateToIsoString(objective.deadline)
+      }
+    })
+    return userObjectivesDateFixed
 }
 
 export default function Objectives() {
