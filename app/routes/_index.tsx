@@ -8,7 +8,7 @@ import ActivitiesSection from "../components/ActivitiesSection";
 import ObjectivesSection from "../components/ObjectivesSection";
 import { LoaderFunctionArgs, redirect, type ActionFunctionArgs } from "@remix-run/node";
 import { getAuth } from "@clerk/remix/ssr.server";
-import { createActivity, createObjective, getActivities, getObjectives, NewActivityType, newObjectiveType } from "~/utils/db";
+import { createActivity, createObjective, getActivities, getAllObjectives, NewActivityType, newObjectiveType } from "~/utils/db";
 import { convertDateToIsoString, convertTimeToMinutes } from "~/utils";
 
 export const action = async (args: ActionFunctionArgs) => {
@@ -83,12 +83,12 @@ export const loader = async (args: LoaderFunctionArgs) => {
   const { userId } = await getAuth(args)
 
   if (!userId) {
-    return redirect('/sign-in?redirect_url=' + args.request.url)
+    return redirect('/sign-in')
   }
 
   // GET OBJECTIVES
 
-  const userObjectives = await getObjectives(userId)
+  const userObjectives = await getAllObjectives(userId)
   const userObjectivesDateFixed = userObjectives.map(objective => {
     return {
       ...objective,
@@ -99,7 +99,6 @@ export const loader = async (args: LoaderFunctionArgs) => {
   // GET ACTIVITIES
 
   const userActivities = await getActivities(userId)
-  console.log(userActivities)
 
   const loaderData = {
     objectives: userObjectivesDateFixed,

@@ -8,17 +8,17 @@ import { getAllObjectives } from "~/utils/db"
 
 export const loader = async (args: LoaderFunctionArgs) => {
   const { userId } = await getAuth(args)
-    if (!userId) {
-      return redirect('/sign-in?redirect_url=' + args.request.url)
+  if (!userId) {
+    return redirect('/sign-in')
+  }
+  const userObjectives = await getAllObjectives(userId)
+  const userObjectivesDateFixed = userObjectives.map(objective => {
+    return {
+      ...objective,
+      deadline: convertDateToIsoString(objective.deadline)
     }
-    const userObjectives = await getAllObjectives(userId)
-    const userObjectivesDateFixed = userObjectives.map(objective => {
-      return {
-        ...objective,
-        deadline: convertDateToIsoString(objective.deadline)
-      }
-    })
-    return userObjectivesDateFixed
+  })
+  return userObjectivesDateFixed
 }
 
 export default function Objectives() {

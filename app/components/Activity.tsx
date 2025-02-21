@@ -12,9 +12,8 @@ export default function Activity({ activity }: { activity: Activity }) {
   return (
     <AnimatePresence>
       <motion.button
-        initial={{ scale: 0 }}
-        animate={{ scale: 1 }} 
-        transition={{ type: "spring", stiffness: 150, bounce: 0.1, duration: 0.1 }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1, transition: { duration: 0.8 } }} 
         style={{
           top: `${position}px`,
           bottom: `${position}px`,

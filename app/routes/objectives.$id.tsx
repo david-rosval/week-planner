@@ -1,11 +1,17 @@
 import { LoaderFunctionArgs } from "@remix-run/node"
-import { useLoaderData } from "@remix-run/react"
+import { redirect, useLoaderData } from "@remix-run/react"
 import { getObjectiveActivities, getUserObjective } from "../utils/db"
-import { calculateDaysLeft } from "../utils"
+import { calculateDaysLeft, convertDateToIsoString } from "../utils"
 import { Clock } from "lucide-react"
 import ObjectiveActivitiesItem from "../components/ObjectiveActivitiesItem"
+import { getAuth } from "@clerk/remix/ssr.server"
 
-export const loader = async ({ params }: LoaderFunctionArgs) => {
+export const loader = async (args: LoaderFunctionArgs) => {
+  const { userId } = await getAuth(args)
+  if (!userId) {
+    return redirect('/sign-in')
+  }
+  const { params } = args
   const { id } = params
   const userObjective = await getUserObjective(id as string)
   const objectiveActivities = await getObjectiveActivities(id as string)
@@ -29,6 +35,7 @@ export default function Objective() {
     objectiveInfo,
     objectiveActivities
   } = data
+  
   return (
     <div className="p-4 bg-gray-800 rounded-lg">
       <div className="flex">
@@ -36,7 +43,7 @@ export default function Objective() {
           <h2 className="text-2xl truncate">{objectiveInfo.title}</h2>
           <div className="flex gap-2 items-center" >
             <Clock size={18} className="stroke-gray-400" /> 
-            <p className="text-gray-400">{objectiveInfo.deadline}</p>
+            <p className="text-gray-400">{convertDateToIsoString(objectiveInfo.deadline)}</p>
           </div>
           <div style={{
             borderColor: `${objectiveInfo.color}`
@@ -47,7 +54,7 @@ export default function Objective() {
           </div>
         </div>
         <div className="flex flex-col items-center justify-center border-l pl-3 border-gray-700">
-          <p className="text-4xl truncate">{calculateDaysLeft(objectiveInfo.deadline)}</p>
+          <p className="text-4xl truncate">{calculateDaysLeft(objectiveInfo.deadline.toString())}</p>
           <p className="">days left</p>
         </div>
 

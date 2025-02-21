@@ -1,17 +1,3 @@
-import { exampleUserActivities, exampleUserObjectives } from "../consts";
-
-export async function getUserObjective(id: string) {
-  const objective = exampleUserObjectives.find(objective => objective.id === id)
-  return objective
-}
-
-export async function getObjectiveActivities(objectiveId: string) {
-  const activities = exampleUserActivities.filter((activity) => activity.objective.id === objectiveId)
-  return activities
-}
-
-// with prisma
-
 import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient()
@@ -28,14 +14,6 @@ export async function getAllObjectives(userId: string) {
     where: { userId },
   })
   return allObjectives
-}
-
-export async function getMoreObjectives(userId: string) {
-  const nextObjectives = await prisma.objective.findMany({
-    take: 4,
-    where: { userId },
-    skip: 4
-  })
 }
 
 export async function getActivities(userId: string) {
@@ -83,4 +61,19 @@ export async function createActivity(newActivity: NewActivityType) {
     data: newActivity
   })
   return createdActivity
+}
+
+export async function getUserObjective(id: string) {
+  const objective = await prisma.objective.findFirst({
+    where: { id }
+  })
+  return objective
+}
+
+export async function getObjectiveActivities(objectiveId: string) {
+  const activities = await prisma.activity.findMany({
+    where: { objectiveId },
+    include: { objective: true }
+  })
+  return activities
 }
