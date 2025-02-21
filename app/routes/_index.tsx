@@ -1,14 +1,14 @@
 import { SignedIn, SignedOut } from "@clerk/remix";
 import WeekPlannerProvider from "../components/providers/WeekPlannerProvider";
 // import Week from "../components/Week";
-import { content, exampleUserWeekPlannerData } from "../consts";
+import { content } from "../consts";
 import { useGlobal } from "../hooks/useGlobal";
 import Welcome from "../components/Welcome";
 import ActivitiesSection from "../components/ActivitiesSection";
 import ObjectivesSection from "../components/ObjectivesSection";
 import { LoaderFunctionArgs, redirect, type ActionFunctionArgs } from "@remix-run/node";
 import { getAuth } from "@clerk/remix/ssr.server";
-import { createObjective, getObjectives, NewActivityType, newObjectiveType } from "~/utils/db";
+import { createActivity, createObjective, getActivities, getObjectives, NewActivityType, newObjectiveType } from "~/utils/db";
 import { convertDateToIsoString, convertTimeToMinutes } from "~/utils";
 
 export const action = async (args: ActionFunctionArgs) => {
@@ -67,17 +67,27 @@ export const action = async (args: ActionFunctionArgs) => {
       newActivity.description = values.description as string
     }
 
-    console.log({ newActivity })
+    try {
+      const createdActivity = await createActivity(newActivity)
+      console.log(createdActivity)
+      return { result: "created" }
+    } catch (error) {
+      console.log(error)
+      return { result: "error" }
+    }
   }
 
-  return redirect("/")
 }
 
 export const loader = async (args: LoaderFunctionArgs) => {
   const { userId } = await getAuth(args)
+
   if (!userId) {
     return redirect('/sign-in?redirect_url=' + args.request.url)
   }
+
+  // GET OBJECTIVES
+
   const userObjectives = await getObjectives(userId)
   const userObjectivesDateFixed = userObjectives.map(objective => {
     return {
@@ -86,12 +96,16 @@ export const loader = async (args: LoaderFunctionArgs) => {
     }
   })
 
+  // GET ACTIVITIES
+
+  const userActivities = await getActivities(userId)
+  console.log(userActivities)
+
   const loaderData = {
     objectives: userObjectivesDateFixed,
-    activities: exampleUserWeekPlannerData.activities
+    activities: userActivities
   }
 
-  //console.log(loaderData)
 
   return loaderData
 }

@@ -40,7 +40,8 @@ export async function getMoreObjectives(userId: string) {
 
 export async function getActivities(userId: string) {
   const allActivities = await prisma.activity.findMany({
-    where: { userId }
+    where: { userId },
+    include: { objective: true }
   })
   return allActivities
 }

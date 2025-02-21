@@ -154,7 +154,7 @@ export type Objective = {
   id: string;
   userId: string;
   title: string;
-  deadline: string;
+  deadline: string | Date;
   color: string;
 }
 
@@ -168,11 +168,14 @@ export type DayTime = {
 export type Activity = {
   id: string;
   title: string;
-  description: string;
-  starts: DayTime;
-  ends: DayTime;
-  objective: Objective;
+  description?: string | null;
+  objectiveId: string;
   userId: string;
+  startDay: string;
+  startTime: number
+  endDay: string;
+  endTime: number;
+  objective: Objective;
 }
 
 export type UserObjectives = Array<Objective>
@@ -213,14 +216,14 @@ export const exampleUserActivities: UserActivities = [
     id: "activity1",
     title: "Morning Jog",
     description: "Daily jogging to stay fit and start the day actively.",
-    starts: {
-      day: "monday",
-      time: 420, // 7:00 AM
-    },
-    ends: {
-      day: "monday",
-      time: 480, // 8:00 AM
-    },
+    
+    startDay: "monday",
+    startTime: 420, // 7:00 AM
+    
+    objectiveId: "objective1",
+    endDay: "monday",
+    endTime: 480, // 8:00 AM
+    
     objective: {
       id: "objective1",
       userId: "user123",
@@ -234,14 +237,14 @@ export const exampleUserActivities: UserActivities = [
     id: "activity2",
     title: "Team Meeting",
     description: "Weekly team sync to discuss progress and blockers.",
-    starts: {
-      day: "wednesday",
-      time: 600, // 10:00 AM
-    },
-    ends: {
-      day: "wednesday",
-      time: 780, // 11:00 AM
-    },
+    
+    startDay: "wednesday",
+    startTime: 600, // 10:00 AM
+    
+    objectiveId: "objective2",
+    endDay: "wednesday",
+    endTime: 780, // 11:00 AM
+    
     objective: {
       id: "objective2",
       userId: "user123",
@@ -255,14 +258,14 @@ export const exampleUserActivities: UserActivities = [
     id: "activity3",
     title: "Code Review",
     description: "Review pull requests from the development team.",
-    starts: {
-      day: "friday",
-      time: 900, // 3:00 PM
-    },
-    ends: {
-      day: "friday",
-      time: 1020, // 5:00 PM
-    },
+    
+    startDay: "friday",
+    startTime: 900, // 3:00 PM
+    
+    objectiveId: "objective3",
+    endDay: "friday",
+    endTime: 1020, // 5:00 PM
+    
     objective: {
       id: "objective3",
       userId: "user123",
@@ -276,14 +279,14 @@ export const exampleUserActivities: UserActivities = [
     id: "activity4",
     title: "Run tests",
     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    starts: {
-      day: "monday",
-      time: 120, // 3:00 PM
-    },
-    ends: {
-      day: "monday",
-      time: 240, // 5:00 PM
-    },
+    
+    startDay: "monday",
+    startTime: 120, // 3:00 PM
+    
+    objectiveId: "objective3",
+    endDay: "monday",
+    endTime: 240, // 5:00 PM
+    
     objective: {
       id: "objective3",
       userId: "user123",

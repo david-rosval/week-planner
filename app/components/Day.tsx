@@ -5,7 +5,7 @@ import Activity from "./Activity";
 
 export default function Day({ weekDay }: { weekDay: string; }) {
   const weekPlannerData = useLoaderData<typeof loader>()
-  const dayActivities = weekPlannerData.activities.filter(activity => activity.starts.day === weekDay)
+  const dayActivities = weekPlannerData.activities.filter(activity => activity.startDay === weekDay)
   return (
     <div className={`relative ${weekDay !== "sunday" && "border-r"} dark:border-gray-700 flex flex-col justify-around`}>
       {hoursOfDay.map((hour, i) => (
